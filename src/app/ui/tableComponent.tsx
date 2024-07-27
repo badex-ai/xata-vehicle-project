@@ -31,7 +31,7 @@ useEffect(() => {
       const filteredValue =  filterData(tempCollisionData,`${monthValues.year}`,monthValues.month)
       setCollisionData(filteredValue)
     }
-  }, [monthValues.month, monthValues.year]);
+  }, [monthValues.month, monthValues.year, tempCollisionData]);
   
   // useEffect(() => {
 

@@ -23,7 +23,7 @@ function Barchart({data,selectedYear}) {
    
     const values = filterData(data,selectedYear)
     setPresentedData(values)
-  }, [selectedYear])
+  }, [data, selectedYear])
  
   return (
     <div><ChartContainer config={chartConfig} className="min-h-[200px] w-full">
