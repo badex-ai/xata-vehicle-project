@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Dialog from "@/app/ui/dialog"
 import Drawer from "@/app/ui/drawer"
 import Nav from "@/app/ui/nav"
 import { Toaster } from "@/components/ui/toaster"
-import Image from 'next/image';
-import myImage from '../../public/xataLogo.svg'
+
 
 
 
