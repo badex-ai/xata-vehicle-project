@@ -1,0 +1,137 @@
+{
+  "id": "mig_cq7v8r0atgadov16k2v0",
+  "parentID": "mig_cq7v58fe9l7rnsi267r0",
+  "checksum": "1:b51e219c99b26cef1266281c6a1a5eb6e712ef5267caaada12bce1dfdfee6551",
+  "operations": [
+    {
+      "addTable": {
+        "table": "vehicle_brands"
+      }
+    },
+    {
+      "addTable": {
+        "table": "collisions"
+      }
+    },
+    {
+      "addTable": {
+        "table": "states"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string"
+        },
+        "table": "vehicle_brands"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "model",
+          "type": "string",
+          "unique": true
+        },
+        "table": "vehicle_brands"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "vehicle_image",
+          "type": "file",
+          "file": {
+            "defaultPublicAccess": true
+          }
+        },
+        "table": "vehicle_brands"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "state",
+          "type": "link",
+          "link": {
+            "table": "states"
+          }
+        },
+        "table": "collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "vehicle_information",
+          "type": "string"
+        },
+        "table": "collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "location",
+          "type": "string"
+        },
+        "table": "collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "driver_sex",
+          "type": "string"
+        },
+        "table": "collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "driving_experience",
+          "type": "int"
+        },
+        "table": "collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "cause",
+          "type": "string"
+        },
+        "table": "collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "plate_number",
+          "type": "string"
+        },
+        "table": "collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string"
+        },
+        "table": "states"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "abbreviation",
+          "type": "string"
+        },
+        "table": "states"
+      }
+    }
+  ]
+}

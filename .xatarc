@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Badamasi-Aliu-s-workspace-es2754.eu-west-1.xata.sh/db/xata-vehicle-project",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}

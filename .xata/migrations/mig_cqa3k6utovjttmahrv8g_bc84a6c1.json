@@ -1,0 +1,14 @@
+{
+  "id": "mig_cqa3k6utovjttmahrv8g",
+  "parentID": "mig_cqa3ju8k9u2qfnsm9fs0",
+  "checksum": "1:bc84a6c16606190a1371447be73bd4165cd3ac54d367bdbb2c3f68a76624c8a1",
+  "operations": [
+    {
+      "renameColumn": {
+        "newName": "vehicle_branxa",
+        "oldName": "vehicle_brandsxataversion",
+        "table": "updated_collisions"
+      }
+    }
+  ]
+}

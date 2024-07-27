@@ -1,0 +1,12 @@
+{
+  "id": "mig_cqa80r0k9u2qfnsm9h40",
+  "parentID": "mig_cqa80aok9u2qfnsm9h30",
+  "checksum": "1:11f5769334682640a6710523e16027cdbf6e7c7edb261df0657d11b81f281b49",
+  "operations": [
+    {
+      "removeTable": {
+        "table": "vehicle_type"
+      }
+    }
+  ]
+}

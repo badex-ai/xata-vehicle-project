@@ -1,0 +1,20 @@
+{
+  "id": "mig_cq9thsok9u2qfnsm9dig",
+  "parentID": "mig_cq9s317uuugk0jnplibg",
+  "checksum": "1:342b9ec826bafd9c62d1dc8a891b6e451a5a244d04fb88bf11d19303d6610f92",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "vehicleinfo",
+          "type": "link",
+          "link": {
+            "table": "vehicle_brands"
+          },
+          "unique": true
+        },
+        "table": "updated_collisions"
+      }
+    }
+  ]
+}

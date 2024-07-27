@@ -1,0 +1,13 @@
+{
+  "id": "mig_cqa3m6utovjttmahrveg",
+  "parentID": "mig_cqa3ltmtovjttmahrvdg",
+  "checksum": "1:e7317ece8fc2555122939d3e521734c708546ab05288383c4dea7f53b979ccaa",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "vehicle_brandFromer",
+        "table": "updated_collisions"
+      }
+    }
+  ]
+}

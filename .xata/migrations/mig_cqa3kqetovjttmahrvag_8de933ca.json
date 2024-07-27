@@ -1,0 +1,13 @@
+{
+  "id": "mig_cqa3kqetovjttmahrvag",
+  "parentID": "mig_cqa3k9utovjttmahrv9g",
+  "checksum": "1:8de933ca53d8256f41b2d622ade5725b2e897e9f2d5291f9c13bf1e3b0f74048",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "vehicle_bran",
+        "table": "updated_collisions"
+      }
+    }
+  ]
+}

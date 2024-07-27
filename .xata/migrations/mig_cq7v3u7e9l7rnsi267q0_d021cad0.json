@@ -1,0 +1,11 @@
+{
+  "id": "mig_cq7v3u7e9l7rnsi267q0",
+  "checksum": "1:d021cad0cf07a991c5ec39f6c35dad13bac6ed6c963344440e25eab5ddbb29dc",
+  "operations": [
+    {
+      "addTable": {
+        "table": "vehicle_type"
+      }
+    }
+  ]
+}

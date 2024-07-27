@@ -1,0 +1,16 @@
+{
+  "id": "mig_cq875f7e9l7rnsi26a5g",
+  "parentID": "mig_cq7v8r0atgadov16k2v0",
+  "checksum": "1:e9d301e2fd5bf1c98f958147b714dec62b25d26933ad594f1bdad4ff1edd8e42",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "vehicle_type",
+          "type": "string"
+        },
+        "table": "vehicle_brands"
+      }
+    }
+  ]
+}

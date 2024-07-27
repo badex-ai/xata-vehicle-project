@@ -1,0 +1,14 @@
+{
+  "id": "mig_cqa3ltmtovjttmahrvdg",
+  "parentID": "mig_cqa3lh6tovjttmahrvcg",
+  "checksum": "1:88f68781e1f1a87f8ede44b11fbd3465fabc5f14912be5ead8812e6702af3b2b",
+  "operations": [
+    {
+      "renameColumn": {
+        "newName": "vehicle_brand",
+        "oldName": "vehicle_br",
+        "table": "updated_collisions"
+      }
+    }
+  ]
+}

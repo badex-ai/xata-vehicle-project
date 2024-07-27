@@ -1,0 +1,96 @@
+{
+  "id": "mig_cqa85tgk9u2qfnsm9hd0",
+  "parentID": "mig_cqa84qgk9u2qfnsm9hag",
+  "checksum": "1:014bec7df5cb7c47646c2062890e26dfda7ef6f9108769928b00f7d365c56b5e",
+  "operations": [
+    {
+      "addTable": {
+        "table": "updated_collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "timestamp",
+          "type": "datetime"
+        },
+        "table": "updated_collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "state_name",
+          "type": "string"
+        },
+        "table": "updated_collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "state_abbr",
+          "type": "string"
+        },
+        "table": "updated_collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "location_of_collision",
+          "type": "string"
+        },
+        "table": "updated_collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "driver_sex",
+          "type": "string"
+        },
+        "table": "updated_collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "driver_experience",
+          "type": "int"
+        },
+        "table": "updated_collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "cause_of_collision",
+          "type": "string"
+        },
+        "table": "updated_collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "vehicle_plate_number",
+          "type": "string"
+        },
+        "table": "updated_collisions"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "vehicle_brands_id",
+          "type": "link",
+          "link": {
+            "table": "vehicle_brands"
+          }
+        },
+        "table": "updated_collisions"
+      }
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+    "tables": [
+      {
+        "name": "vehicle_type",
+        "columns": [
+          {
+            "name": "name",
+            "type": "string",
+            "unique": true
+          }
+        ]
+      },
+      {
+        "name": "vehicle_brands",
+        "columns": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "model",
+            "type": "string",
+            "unique": true
+          },
+          {
+            "name": "vehicle_image",
+            "type": "file",
+          "file": {
+            "defaultPublicAccess": true
+          }
+          }
+
+        ]
+      },
+      {
+        "name": "collisions",
+        "columns": [
+          {
+            "name": "state",
+            "type": "link",
+            "link": {
+               "table" : "states"
+            }
+          },
+          {
+            "name": "vehicle_information",
+            "type": "string"
+          },
+          {
+            "name": "location",
+            "type": "string"
+          },
+          {
+            "name": "driver_sex",
+            "type": "string"
+          },
+          {
+            "name": "driving_experience",
+            "type": "int"
+          },
+          {
+            "name": "cause",
+            "type": "string"
+          },
+          {
+            "name": "plate_number",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "states",
+        "columns": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "abbreviation",
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }

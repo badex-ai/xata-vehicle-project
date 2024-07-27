@@ -1,0 +1,12 @@
+{
+  "id": "mig_cqa7u6mtovjttmahs090",
+  "parentID": "mig_cqa7tr8k9u2qfnsm9gvg",
+  "checksum": "1:b9d8458e39ca81f3578391842ce0526f407d57b81980db3ece2909f1965dc8ef",
+  "operations": [
+    {
+      "removeTable": {
+        "table": "updated_collisions"
+      }
+    }
+  ]
+}
