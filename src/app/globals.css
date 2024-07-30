@@ -75,10 +75,10 @@
     }
   }
   .navActiveLink {
-    @apply px-2 py-[0.5] bg-slate-700 rounded-sm text-white mx-2 uppercase text-sm ;
+    @apply  bg-slate-700 rounded-sm text-white mx-2 uppercase text-sm ;
 }
   .navLink {
-    @apply px-2 py-[0.5]   text-black mx-2 uppercase text-sm ;
+    @apply    text-black mx-2 uppercase text-sm ;
 }
 .drawer-content-right {
   position: fixed !important;

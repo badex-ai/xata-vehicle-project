@@ -9,11 +9,11 @@ function Nav() {
     const pathname = usePathname();
   return (
     <>
-    <Link className={pathname === '/' ? 'navActiveLink' : 'navLink '}  href="/" >All </Link>
-    <Link className={pathname === '/car' ? 'navActiveLink' : 'navLink '}   href="car" >Cars </Link>
-    <Link className={pathname === '/bus' ? 'navActiveLink' : 'navLink '}   href="bus">Bus</Link>
-    <Link className={pathname === '/motorcycle' ? 'navActiveLink' : 'navLink '}  href="motorcycle">Motorcycles</Link>
-    <Link className={pathname === '/truck' ? 'navActiveLink' : 'navLink '}  href="truck">Trucks</Link></>
+    <Link className={pathname === '/' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0]  hover:rounded-sm '}  href="/" >All </Link>
+    <Link className={pathname === '/car' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0]  hover:rounded-sm '}   href="car" >Cars </Link>
+    <Link className={pathname === '/bus' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0]  hover:rounded-sm '}   href="bus">Bus</Link>
+    <Link className={pathname === '/motorcycle' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0] hover:rounded-sm '}  href="motorcycle">Motorcycles</Link>
+    <Link className={pathname === '/truck' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0] hover:rounded-sm '}  href="truck">Trucks</Link></>
   )
 }
 
