@@ -13,16 +13,20 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import CollisionReportForm from '@/app/ui/collisionReportFrom'  
-import {addNewCollison} from '@/app/server/dataFunction'
+import {addNewCollision} from '@/app/server/dataFunction'
 import { useToast } from "@/components/ui/use-toast"
+import {FormData} from '@/lib/types'
+
+
+
 
 function CollisionReportDrawer() {
   const [isOpen, setIsOpen] = useState(false)
   const { toast } = useToast()
 
-  const  handleSubmit = async(data) => {
+  const  handleSubmit = async(data : FormData) => {
     
-    const result = await addNewCollison(data)
+    const result = await addNewCollision(data)
     if(result.id){
       toast({
         title: "Collision Added",

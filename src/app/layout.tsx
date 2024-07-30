@@ -31,7 +31,7 @@ export default function RootLayout({
           
  
         <div>XATA PROJECT</div> 
-        <a href="#"> link to github</a>
+        <a target="blank" className="external-link" rel="noopener noreferrer" href="https://github.com/badex-ai/xata-vehicle-project"> link to github</a>
      
       </header>
       <div className="p-2">

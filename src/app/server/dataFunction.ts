@@ -1,12 +1,16 @@
 "use server"
 import { getXataClient } from '@/xata';
+import {FormData} from '@/lib/types'
+import { Collisions } from '@/xata';
+import {SearchResult} from '@/lib/types'
+
 const xata = getXataClient();
 
 export async function  getAllCollisions(){
     return await xata.db.collisions.getPaginated() 
   }
 
-export async function searchTable(value){
+export async function searchTable(value: {searchString: string}) {
  
    return await xata.search.all(value.searchString,{tables: ["collisions"]})  
   };
@@ -92,7 +96,7 @@ export async function getStatesCollisionsCounts(){
     sort: [{ count: "desc" }],
   });
 }
-export async function getallCollisions(){
+export async function getallCollisions():Promise<Collisions[]>{
   
  const result =  await xata.db.collisions.select([
     "*",
@@ -104,7 +108,7 @@ export async function getallCollisions(){
   return JSON.parse(JSON.stringify(result))
 }
 
-export async function addNewCollison(input){
+export async function addNewCollision(input:FormData){
   const vehicle = await xata.db.vehicle_brands
   .select([
     "*"
@@ -148,7 +152,7 @@ export async function getHigestCollisionCause() {
 
 }
 
-export async function fetchPaginatedData(page: number) {
+export async function fetchPaginatedData(page: number):Promise<Collisions[]> {
  const result =  await xata.db.collisions
  .select([
   "*",
@@ -162,6 +166,6 @@ export async function fetchPaginatedData(page: number) {
 
    
 
-    return JSON.parse(JSON.stringify(result))
+    return JSON.parse(JSON.stringify(result.records))
 
 }

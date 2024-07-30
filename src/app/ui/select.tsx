@@ -11,18 +11,23 @@ import { usePathname } from "next/navigation"
 import { months,currentYear } from "@/lib/utils"
 
 
-function SelectInput({yearList, onSelectChange,type }) {
+type InputProps = {
+  yearList?: string[];
+  onSelectChange?: (value: string) => void; // Function type for handling changes
+  type: string; 
+}
+
+function SelectInput({yearList, onSelectChange,type }:InputProps) {
   const pathName = usePathname()
   
-  const [selectedValue, setSelectedValue] = useState()
+  const [selectedValue, setSelectedValue] = useState('')
 
-  const handleChange = (value) => {
+  const handleChange = (value: string) => {
     if(type != 'default'){
       setSelectedValue(value);
-    onSelectChange(value);
-    }else{
-      onSelectChange(value);
-    }
+    } if (onSelectChange) {
+    onSelectChange(value); // Call only if defined
+  }
     
   };
 
@@ -57,7 +62,7 @@ function SelectInput({yearList, onSelectChange,type }) {
       extra = ''
       options = (
         <>
-         <SelectItem key='year2' value="year">Year</SelectItem>
+         <SelectItem key='year3' value="year">Year</SelectItem>
         
          {extra}
          
@@ -67,10 +72,10 @@ function SelectInput({yearList, onSelectChange,type }) {
     
     placeholder = <SelectValue placeholder={place} />
   } else if (type === 'year') {
-    options = yearList.map((year) => (
+    options = yearList?.map((year,i) => (
      <>
    
-      <SelectItem key={year} value={year}>
+      <SelectItem key={`${year}-${i}`} value={year}>
         {year}
       </SelectItem></> 
        

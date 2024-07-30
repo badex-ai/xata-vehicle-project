@@ -1,8 +1,14 @@
 import { getAllCollionsCount, getAllCollionsCountPerYear, getallCollisions,getStatesCollisionsCounts,searchTable,getHigestCollisionCause,fetchPaginatedData } from "./server/dataFunction";
 import TableComponent from "./ui/tableComponent";
+import { InfoCircledIcon } from '@radix-ui/react-icons'
 
 export default async function Home() {
   
+  type tempObject = {
+    [key: string]: number
+  };
+
+
   const collisionData = await getallCollisions()
 
   
@@ -19,14 +25,14 @@ export default async function Home() {
   const higestState = result2.summaries[0].state_name
 
   const result = val.aggs.collisionsPerYear.values
-  let vvv = {}
+  let tempObj: tempObject = {}
   result.forEach(({ $key, $count }) => {
-    vvv[$key.substring(0, 4)] = $count
+    tempObj[($key as string).substring(0, 4)] = $count
   })
 
-  let collisionForEachYear = Object.entries(vvv).map(([key, value]) => {
+  let collisionForEachYear = Object.entries(tempObj).map(([key, value]) => {
     return < >
-      <p key={key}>{key} :{value} <span className="text-sm">avgM* </span>:<span className="text-sm font-semibold text-[#FF6F61]">{(value / 12).toFixed(0)}</span></p>
+      <p key={`${key}-${value}`}>{key} :{value} <span className="text-sm pl-2">avgM*: </span><span className="text-sm">{(value / 12).toFixed(0)}</span></p>
 
     </>
   }
@@ -55,15 +61,24 @@ export default async function Home() {
 
 
           <div className="text-[15px] p-4 mt-[50px] w-[20%] bg-[#dbeafe]">
-            <h2 className="text-lg font-semibold mb-4 text-center py-1.5 border-b">COLLISIONS STATS</h2>
-            <div className="text-base pt-4">
-            <div>Number of collisions per year: {collisionForEachYear}</div>
-            <p>Average collisions for period: {avgCollisionForPeriod}</p>
-            <p>State with highest collision : {higestState?.toUpperCase()} </p>
-            <p>Most frequent cause of collision  :  {mostFrequentCollisionCause.summaries[0].cause_of_collision} <span className="text-xs">({mostFrequentCollisionCause.summaries[0].count} occurencies)</span> </p>
+            <h2 className="text-lg font-semibold mb-3 text-center py-1.5 border-b border-black">COLLISIONS STATS</h2>
+            <div className="text-base pt-4 flex-col space-y-4 h-[20rem]">
+            <div className="">Number of collisions per year: <span className="font-light">{collisionForEachYear}</span></div>
+            
+            <div>
+              <p>Average collisions for period: <span className="font-light">{avgCollisionForPeriod}</span> </p>
+            </div>
+            <div>
+              <p>State with highest collision : <span className="font-light">{higestState?.toUpperCase()}</span> </p>
+            </div>
+            <div>
+              <p>Most frequent cause of collision :  <span className="font-light">{mostFrequentCollisionCause.summaries[0].cause_of_collision}</span> <span className="text-xs">({mostFrequentCollisionCause.summaries[0].count} events)</span> </p>
             </div>
             
+            
           </div>
+          <div className="flex space-x-2 pt-5"><div><InfoCircledIcon/></div><div className="text-xs">avgM*: average monthly collision using a 12 month approximation</div></div>
+            </div>
         </div>
       </div>
 

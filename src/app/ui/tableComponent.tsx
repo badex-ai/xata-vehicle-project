@@ -4,20 +4,30 @@ import Table from "@/app/ui/table"
 import Search from "@/app/ui/search";
 import Select from "@/app/ui/select"
 import {filterData,splitDate} from "@/lib/utils"
+import { Collisions } from '@/xata';
+import {SearchResult} from '@/lib/types'
 
+type TableCompType={
+  data: Collisions[],
+  getSearchQuery: (params: { searchString: string }) => Promise<SearchResult>, 
+totalCount: number,
+getPage:(page: number) => Promise<Collisions[]>
 
-function TableComponent({ data, getSearchQuery,totalCount,getPage }) {
+}
+
+const TableComponent: React.FC<TableCompType> =({ data, getSearchQuery,totalCount,getPage })=> {
+ 
   let tempCollisionData = JSON.parse(JSON.stringify(data))
   const [currentData, setCurrentData] = useState(tempCollisionData)
 
   const [collisionData, setCollisionData] = useState(tempCollisionData)
-  const [searchData, setSearchData] = useState(null)
+  const [searchData, setSearchData] = useState<SearchResult | null>(null)
   const [optData, setOptData] = useState('all')
   const [monthValues, setMonthValues] = useState({
     month: null,
     year: null
   });
-  const [currentPage, setcurrentPage] = useState('1')
+  const [currentPage, setcurrentPage] = useState(1)
   const [resetKey, setResetKey] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -30,8 +40,8 @@ useEffect(() => {
     if (monthValues.month && monthValues.year) {
       const filteredValue =  filterData(tempCollisionData,`${monthValues.year}`,monthValues.month)
       setCollisionData(filteredValue)
-    }
-  }, [monthValues.month, monthValues.year, tempCollisionData]);
+    }// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [monthValues.month, monthValues.year]);
   
   // useEffect(() => {
 
@@ -51,7 +61,7 @@ useEffect(() => {
   const pages = totalCount/data.length
   const pagesArray = Array.from({ length: pages }, (v, i) => i + 1)
  
-  const handlePageClick=async (pageIndex)=>{
+  const handlePageClick=async (pageIndex:number)=>{
     setLoading(true)
   let page = pageIndex + 1
    let result = await getPage(page)
@@ -62,32 +72,38 @@ useEffect(() => {
     setResetKey(prevKey => prevKey + 1);
    }
 
-   setCollisionData(result.records)
-   setCurrentData(result.records)
+   setCollisionData(result)
+   setCurrentData(result)
   }
   let pagesBtn = pagesArray.map((page,index)=>{
     
-    return <><button className={`w-6 h-6 hover:bg-[#f3f4f685] hover:rounded-full text-xs ${ `${currentPage}` === `${page}` ? 'rounded-full bg-[#334155] text-white' : ''}`} onClick={()=>{handlePageClick(index)}}>{page}</button></>
+    return <><button key={`${page}-${index}`} className={`w-6 h-6 relative  text-xs ${ `${currentPage}` === `${page}` ? 'rounded-full bg-[#334155] text-white' : ''} relative-btn`} onClick={()=>{handlePageClick(index)}}>{page}</button></>
   })
 
-  let arrayForYearList = []
-  
-  tempCollisionData.forEach((collision)=>{
+  let arrayForYearList:string[] = []
 
-    
-    const  {year,month,day} = splitDate(collision.timestamp)
+  interface ExtendedCollision extends Collisions {
+    year?: string;
+    month?: string;
+    day?: string;
+  }
+  
+  tempCollisionData.forEach((collision:ExtendedCollision)=>{
+    if (collision.timestamp) {
+      const  {year,month,day} = splitDate(`${collision.timestamp}`)
     collision.year = year;
     collision.month = month;
     collision.day = day;
     arrayForYearList.push(year)
-
-   
-    
+    }
 
    }) 
 
-   let yearList = new Set(arrayForYearList)
-    yearList = [...yearList]
+
+    let yearList: string[] = Array.from(new Set(arrayForYearList))
+
+   
+    
   
 
   
@@ -106,8 +122,9 @@ useEffect(() => {
     opt=''
   }
 
-  const handleSearch = async (value) => {
-    const result = await getSearchQuery(value)
+  const handleSearch = async (value:{searchString: string}) => {
+    const result:SearchResult = await getSearchQuery(value)
+   
    
     setSearchData(result)
   }
@@ -121,7 +138,7 @@ useEffect(() => {
 
     
 
-  function handleSelectChange(val,btnType){
+  function handleSelectChange(val:string,btnType: string){
     if(btnType === 'year' ){
      
       if(optData === 'year'){

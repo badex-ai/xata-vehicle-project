@@ -18,7 +18,6 @@ const chartData = results.aggs.byMonth.values
 
 const plainObject = JSON.parse(JSON.stringify(brandCollisions));
 
-
   return (
      <>
       <div className="p-4 ">

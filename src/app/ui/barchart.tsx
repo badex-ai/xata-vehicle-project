@@ -12,7 +12,17 @@ const chartConfig = {
 } satisfies ChartConfig
 
 
-function Barchart({data,selectedYear}) {
+type DataType={
+  year: string, month: string, crashes: number, day: string
+}
+
+interface barData  {
+  selectedYear:string;
+  data: DataType[]
+}
+
+
+function Barchart({data,selectedYear}: barData) {
 
    
    const val = filterData(data,selectedYear)
@@ -26,7 +36,8 @@ function Barchart({data,selectedYear}) {
   }, [data, selectedYear])
  
   return (
-    <div><ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+    <div>
+    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
     <BarChart accessibilityLayer data={presentedData}>
     <CartesianGrid vertical={false} />
     <XAxis

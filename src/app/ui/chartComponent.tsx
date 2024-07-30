@@ -5,23 +5,42 @@ import Barchart from "@/app/ui/barchart"
 import Piechart from "@/app/ui/piechart"
 import { currentYear,months,splitDate,filterData } from '@/lib/utils'
 import { PieChartIcon,BarChartIcon } from '@radix-ui/react-icons'
-import { parseISO, parse, format } from 'date-fns';
 import VehicleAggComponent from '@/app/ui/vehicleAggComponent'
 
-function Chartcomponent({barChartData, pieChartData}) {
+import {PieData,BarData} from '@/lib/types'
+
+
+
+interface ChartDataType {
+  barChartData: BarData[];
+  pieChartData: PieData[]
+}
+
+const Chartcomponent :React.FC<ChartDataType>  = ({barChartData, pieChartData})=> {
+
     const [selectedYear, setSelectedYear] = useState(currentYear)
     const [currentChart, setCurrentChart] = useState('bar')
-    
-    let newData = []
-    let arrayForYearList = []  
 
-    const handleSelectChange = (value) => {
+    interface CrashData {
+      year: string;
+      month: string;
+      crashes: number;
+      day: string;
+    }
+    
+    let newData :CrashData[]= []
+    let arrayForYearList :string[]= []  
+
+    const handleSelectChange = (value:string) => {
      
+      if(value !== 'year'){
         setSelectedYear(value)
+      }
+        
         
     };
 
-    const handleChartSet = (value)=>{
+    const handleChartSet = (value: string)=>{
         if(value === 'bar'){
           setCurrentChart('bar')
         }
@@ -31,11 +50,9 @@ function Chartcomponent({barChartData, pieChartData}) {
         
     }
 
-     
+      barChartData.forEach((dataValue:BarData)=>{
 
-      barChartData.forEach((dataValue)=>{
-
-        const  {year,month,day} = splitDate( dataValue['$key'])
+        const  {year,month,day} = splitDate( dataValue['$key'] as string)
         newData.push({year,month, crashes: dataValue['$count'],day })
 
        }) 
@@ -44,22 +61,29 @@ function Chartcomponent({barChartData, pieChartData}) {
         arrayForYearList.push(element.year)
        });
 
-       let uniqueSet = new Set(arrayForYearList);
+       let uniqueSet: Set<string> = new Set(arrayForYearList);
       
-       let yearList = [...uniqueSet]
+       let yearList = Array.from(uniqueSet)
 
-       const groupedByBrand = pieChartData.reduce((acc, collision) => {
+       type BrandAcc = {
+        [brandName: string]: PieData[];
+      };
 
-        const brandName = collision.vehicle_brands.name;   
+       const groupedByBrand = pieChartData.reduce<BrandAcc>((acc, collision) => {
+
+        const brandName = collision.vehicle_brands?.name as string;   
         const time = splitDate(collision.timestamp)
 
       
         collision.year = time.year
         collision.month = time.month
         collision.day = time.day
-        if (!acc[brandName]) {
-          acc[brandName] = [];
-        }
+
+        
+          if (!acc[brandName]) {
+            acc[brandName] = [];
+          }
+          
         
         acc[brandName].push(collision);
         
@@ -70,14 +94,14 @@ function Chartcomponent({barChartData, pieChartData}) {
 
       const chartData = Object.entries(groupedByBrand)
       .map(([model, data]) => ({
-        carModel: model,
+        vehicleModel: model,
         collisions: filterData(data, selectedYear).length
       }))
       .filter(item => item.collisions > 0).sort((a, b) => b.collisions - a.collisions);
       
       const chart = currentChart === 'bar' ?   <Barchart selectedYear={selectedYear} data={newData}/> : 
       <Piechart selectedYear={selectedYear} data={pieNewData}/>
-
+    
   return (
     <>
          
@@ -85,15 +109,9 @@ function Chartcomponent({barChartData, pieChartData}) {
           <div className="font-semibold text-sm uppercase">Filter </div>
           <div><Select key={'default-1'} type='default' /></div>
           <div> <Select key={'year-1'} onSelectChange={handleSelectChange} type='year' yearList={yearList}/> </div>
-         
-         
-         
         </div>
           
-         
-          
-           
-       
+
         <div className="h-[40rem] border flex">
           <div className=" border w-[80%] p-8">
 
@@ -104,8 +122,8 @@ function Chartcomponent({barChartData, pieChartData}) {
            
             </div>
             <div className='mt-4 w-[5%] '>
-              <button type='button'onClick={()=>handleChartSet('pie')} className='w-8 h-8 hover:bg-[#f3f4f6] rounded-sm  hover:text-white-500'><PieChartIcon className='w-7 h-7 mx-auto my-auto'/></button>
-              <button type='button' onClick={()=>handleChartSet('bar')} className='w-8 h-8 hover:bg-[#f3f4f6] rounded-sm  hover:text-white-500'><BarChartIcon className='w-7 h-7 mx-auto my-auto'/></button>
+              <button title="click this to see the piechart for models" type='button'onClick={()=>handleChartSet('pie')} className='w-8 h-8 hover:bg-[#f3f4f6] rounded-sm  hover:text-white-500'><PieChartIcon className='w-7 h-7 mx-auto my-auto'/></button>
+              <button title='click this to see the barChart'type='button' onClick={()=>handleChartSet('bar')} className='w-8 h-8 hover:bg-[#f3f4f6] rounded-sm  hover:text-white-500'><BarChartIcon className='w-7 h-7 mx-auto my-auto'/></button>
               
               
             </div>

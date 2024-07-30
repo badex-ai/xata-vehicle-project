@@ -87,13 +87,38 @@
   height: 100% !important;
   max-width: 28rem !important; /* Equivalent to sm:max-w-md */
   width: 100% !important;
-  /* transition: transform -0.1s cubic-bezier(0.32, 0.72, 0, 1)  !important;
-  transform: translateX(100%) !important; */
+ 
+}
+.external-link::after {
+  content: " \2197"; /* Unicode for north east arrow */
+  display: inline-block;
+  font-size: 0.8em;
+  margin-left: 3px;
 }
 
-.drawer-content-right[data-state="open"] {
-  /* transform: translateX(0) !important; */
+
+.relative-btn {
+  position: relative;
 }
+
+.relative-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 2px;
+  background-color: #334155;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.relative-btn:hover::after {
+  opacity: 1;
+}
+
+
 
 @media (max-width: 640px) {
   .drawer-content-right {

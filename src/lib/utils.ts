@@ -1,12 +1,14 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { getYear } from 'date-fns';
+import {DataItem} from '@/lib/types'
+
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 export const currentYear = getYear(new Date()).toString()
-export const months = {
+export const months : {[key: string]: string} = {
   "01": "Jan",
   "02": "Feb",
   "03": "Mar",
@@ -21,7 +23,7 @@ export const months = {
   "12": "Dec"
 };
 
-export function splitDate(dateString){
+export function splitDate(dateString: string){
   
   const date = dateString.split("T")[0]
   const year = date.split("-")[0]
@@ -33,7 +35,9 @@ export function splitDate(dateString){
 
 }
 
-export function filterData(valueToFilter,selectedYear,selectedMonth){
+
+
+export function filterData(valueToFilter:DataItem[],selectedYear: string,selectedMonth?:string){
   let values= valueToFilter.filter((data)=>{
     if(selectedMonth){
       return selectedYear === data.year && months[selectedMonth] === data.month
@@ -49,7 +53,7 @@ export function filterData(valueToFilter,selectedYear,selectedMonth){
 export const causes = [
   "Distracted driving", "Speeding", "Drunk driving", "Weather conditions", "Running a red light",
   "Tailgating", "Reckless driving", "Improper turns", "Vehicle malfunction", "Fatigue"
-]
+] as const
 
 export const states = [
   
@@ -109,7 +113,11 @@ export const states = [
 
 ]
 
-export const vehicleTypes = ["Car", "Motorcycle", "Bus", "Truck"]
+export const vehicleTypes = ["Car", "Motorcycle", "Bus", "Truck"] as const
 
+export  const capitalizeFirstLetter = (str: string) => {
+  if (typeof str !== 'string' || str.length === 0) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 
 

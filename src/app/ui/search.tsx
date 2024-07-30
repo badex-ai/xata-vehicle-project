@@ -18,11 +18,14 @@ import {
   import {searchTable} from '@/app/server/dataFunction'
 
 
-function Search({getSearch}) {
-  // const [first, setfirst] = useState(second)
-
   const FormSchema = z.object({
     searchString: z.string()})
+
+type GetSearchFunction = (formData: z.infer<typeof FormSchema>)=> void
+const Search: React.FC<{ getSearch: GetSearchFunction }> = ({getSearch})=> {
+  // const [first, setfirst] = useState(second)
+
+ 
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -32,7 +35,7 @@ function Search({getSearch}) {
       })
      
       async function  onSubmit(data: z.infer<typeof FormSchema>) {
-        const result = getSearch(data)
+         getSearch(data)
        
        
       

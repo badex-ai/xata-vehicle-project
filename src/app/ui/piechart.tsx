@@ -7,6 +7,8 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import {filterData} from '@/lib/utils'
+import {StringCountDataType,ModelArraysObject} from '@/lib/types'
+
 
 const color =[
   "hsl(153, 82%, 55%)", "hsl(226, 32%, 36%)", "hsl(168, 63%, 30%)", "hsl(280, 76%, 32%)",
@@ -18,16 +20,29 @@ const color =[
   "hsl(140, 72%, 85%)"
 ]
 
-export default function Piechart({data,selectedYear}) {
 
-  let chartConfig ={
+
+
+ const Piechart: React.FC<{data:ModelArraysObject,selectedYear:string}> =({data,selectedYear})=> {
+
+  interface ChartConfig {
+    [key: string]: {
+      label: string;
+      color?: string;
+    };
+  }
+  let chartConfig:ChartConfig ={
     collisions: {
     label: "collisions",
     
   }
   }satisfies ChartConfig
   
-  let chartData=[]
+  type PieComponentType = { 
+    vehicleModel: string, collisions: number, fill: string
+   }
+
+  let chartData : PieComponentType[]=[]
 
   const modelsMap = new Map();
 
@@ -38,6 +53,7 @@ export default function Piechart({data,selectedYear}) {
 
     }
 
+
     let i = 0
 
   modelsMap.forEach((value, key) => {
@@ -47,7 +63,7 @@ export default function Piechart({data,selectedYear}) {
         label: key,
         color: `var(--color-${key})`,
       }
-    chartData.push({ carModel: key, collisions: value.length, fill: color[i] })
+    chartData.push({ vehicleModel: key, collisions: value.length, fill: color[i] })
     }
     i++
 });
@@ -82,16 +98,18 @@ export default function Piechart({data,selectedYear}) {
                     fill="hsla(var(--foreground))"
                   >
                     {`${
-                      chartConfig[payload.carModel as keyof typeof chartConfig]
+                      chartConfig[payload.vehicleModel as keyof typeof chartConfig]
                         ?.label
                     } (${payload.collisions})`}
                   </text>
                 )
               }}
-              nameKey="carModel"
+              nameKey="vehicleModel"
             />
           </PieChart>
          </ChartContainer>
    
   )
 }
+
+export default Piechart

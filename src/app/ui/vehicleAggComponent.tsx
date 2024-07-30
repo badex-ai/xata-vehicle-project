@@ -1,15 +1,27 @@
 "use client"
 import React,{useEffect,useState} from 'react'
 import { usePathname } from 'next/navigation'
-import { filterData } from '@/lib/utils'
+import { filterData,capitalizeFirstLetter } from '@/lib/utils'
+import {DataItem} from '@/lib/types'
 
 
-function VehicleAggComponent({selectedYear,currentChart,barData,pieData}) {
+type PieData = {vehicleModel: string, collisions: number}
+type VehicleAggType={
+  selectedYear: string,
+  currentChart: string,
+  barData: DataItem[],
+  pieData: PieData[]
+}
+
+const VehicleAggComponent:React.FC<VehicleAggType> =({selectedYear,currentChart,barData,pieData})=> {
+ 
     const pathname = usePathname()
     const val = filterData(barData,selectedYear)
-        
-    function sumCrashes(dataArray) {
-      return dataArray.reduce((total, current) => total + current.crashes, 0);
+   
+
+    function sumCrashes(dataArray:DataItem[]) {
+
+      return dataArray.reduce((total:number, current: DataItem) => total + current.crashes, 0);
     }
 
    const avgCollision = sumCrashes(val) / val.length
@@ -21,16 +33,19 @@ function VehicleAggComponent({selectedYear,currentChart,barData,pieData}) {
     
     <p>Average {vehicle} crashes for {selectedYear}:
         </p>
-        <p>{avgCollision.toFixed(0)} crashes</p>
+        <p className="font-light">{avgCollision.toFixed(0)} crashes</p>
     </> :
-    <div><p>{vehicle} model with the highest collision in {selectedYear}: </p>
-    <p>{pieData[0].carModel}({pieData[0].collisions})</p></div>
+    <div><p>{capitalizeFirstLetter(vehicle)} model with the highest collision in {selectedYear}: </p>
+    <p className="font-light">{pieData[0].vehicleModel}({pieData[0].collisions})</p>
+   
+    </div> 
   return (
     <>
-    <div><h2 className='text-lg font-semibold mb-4 text-center py-1.5 border-b'> AGGREGATE INFO</h2></div>
-    <div className='text-base pt-4'>{agg}</div>
+    <div><h2 className='font-semibold mb-3 text-center py-1.5 border-b border-black'> AGGREGATE INFO</h2></div>
+    <div className='pt-3'>{agg}</div>
     </>
   )
 }
+
 
 export default VehicleAggComponent

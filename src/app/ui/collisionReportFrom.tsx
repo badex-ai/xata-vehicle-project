@@ -17,28 +17,12 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {states, causes,vehicleTypes} from '@/lib/utils'
 import "react-datepicker/dist/react-datepicker.css";
+import {FormData,FormSchema} from '@/lib/types'
 
 
-function CollisionReportForm({ onSubmit }) {
-  const capitalizeFirstLetter = str => {
-    if (typeof str !== 'string' || str.length === 0) return str;
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
-  
-  const FormSchema = z.object({
-    causeOfCollision: z.enum(causes),
-    driversExperience: z.number().int().gt(0),
-    sex: z.enum(["Male", "Female"]),
-    location: z.string().min(1, "Location is required"),
-    state: z.string().min(4,'state is required'),
-    time: z.string().datetime({ message: "Please enter a valid time" }),
-    plateNumber: z.string().length(7, "Plate number must be 7 characters long").transform((val) => val.toUpperCase()),
-    vehicleBrand: z.string().min(1, "Vehicle brand is required").transform(capitalizeFirstLetter),
-    vehicleModel: z.string().min(1, "Vehicle model is required").transform(capitalizeFirstLetter),
-    vehicleType: z.enum(vehicleTypes)
-  })
-
-  const form = useForm<z.infer<typeof FormSchema>>({
+const CollisionReportForm:React.FC<{ onSubmit: (data: z.infer<typeof FormSchema>) => void }> =({ onSubmit })=> {
+ 
+  const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       causeOfCollision: "Distracted driving",
@@ -76,8 +60,8 @@ function CollisionReportForm({ onSubmit }) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {causes.map((cause) => (
-                    <SelectItem key={cause} value={cause}>
+                  {causes.map((cause,i) => (
+                    <SelectItem key={`${cause}-${i}`} value={cause}>
                       {cause}
                     </SelectItem>
                   ))}
@@ -151,8 +135,8 @@ function CollisionReportForm({ onSubmit }) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {states.map((state) => (
-                    <SelectItem key={state.code} value={state.name}>
+                  {states.map((state,i) => (
+                    <SelectItem key={`${state.code}-${i}`} value={state.name}>
                       {state.name}
                     </SelectItem>
                   ))}
@@ -172,7 +156,7 @@ function CollisionReportForm({ onSubmit }) {
               <FormControl>
               <DatePicker
           selected={field.value ? new Date(field.value) : null}
-          onChange={(date: Date) => field.onChange(date ? date.toISOString() : null)}
+          onChange={(date: Date | null) => field.onChange(date ? date.toISOString() : null)}
           showTimeSelect
           timeFormat="HH:mm"
           timeIntervals={15}
@@ -240,8 +224,8 @@ function CollisionReportForm({ onSubmit }) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {vehicleTypes.map((type) => (
-                    <SelectItem key={type} value={type}>
+                  {vehicleTypes.map((type,i) => (
+                    <SelectItem key={`${type}-${i}`} value={type}>
                       {type.charAt(0).toUpperCase() + type.slice(1)}
                     </SelectItem>
                   ))}

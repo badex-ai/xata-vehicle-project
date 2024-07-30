@@ -10,12 +10,18 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import { Cross2Icon,CrumpledPaperIcon } from '@radix-ui/react-icons'
+import { Collisions } from '@/xata'
 
+
+type TableUIType = {
+  data: Collisions[],
+  searchData: {records:{record:Collisions ,table: string}[],totalCount: number} | null,
+  closeSearch: ()=> void 
+}
   
   
-  function TableUI({data,searchData,closeSearch}) {
+  const TableUI: React.FC<TableUIType> = ({data,searchData,closeSearch})=> {
     
-
     useEffect(() => {
      
       
@@ -96,7 +102,7 @@ import { Cross2Icon,CrumpledPaperIcon } from '@radix-ui/react-icons'
          <TableCell className="text-right">{collision.location_of_collision}</TableCell>
          <TableCell className="text-right">{collision.state_name}</TableCell>
          {/* <TableCell className="text-right">{collision.location_of_collision}</TableCell> */}
-         <TableCell className="text-right">{collision.timestamp}</TableCell>
+         <TableCell className="text-right">{`${collision.timestamp}`}</TableCell>
        
          <TableCell className="text-right">{collision.vehicle_plate_number}</TableCell>
          <TableCell className="text-right">{`${collision.vehicle_brands?.name} ${collision.vehicle_brands?.model}`}</TableCell>
@@ -111,7 +117,7 @@ import { Cross2Icon,CrumpledPaperIcon } from '@radix-ui/react-icons'
 
        const content =  searchData ? 
        <> 
-       <h3 className='mb-4'><span><button className='w-6 h-6 ml-2 mb-2 mr-2 rounded-sm bg-gray-200 hover:bg-gray-400 p-1' type='button' onClick={closeSearch}><Cross2Icon/></button></span>Search Results: {searchData?.totalCount}</h3>
+       <h3 className='mb-4'><span><button title='click this button to close search results' className='w-6 h-6 ml-2 mb-2 mr-2 rounded-sm bg-gray-200 hover:bg-gray-400 p-1' type='button' onClick={closeSearch}><Cross2Icon/></button></span>Search Results: {searchData?.totalCount}<span className='text-xs text-blue-500'> ( Search result filter is not available yet)</span></h3>
        {searchTable}
        </>
         
