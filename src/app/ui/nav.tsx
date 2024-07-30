@@ -8,12 +8,22 @@ import clsx from 'clsx';
 function Nav() {
     const pathname = usePathname();
   return (
-    <>
-    <Link className={pathname === '/' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0]  hover:rounded-sm '}  href="/" >All </Link>
-    <Link className={pathname === '/car' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0]  hover:rounded-sm '}   href="car" >Cars </Link>
-    <Link className={pathname === '/bus' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0]  hover:rounded-sm '}   href="bus">Bus</Link>
-    <Link className={pathname === '/motorcycle' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0] hover:rounded-sm '}  href="motorcycle">Motorcycles</Link>
-    <Link className={pathname === '/truck' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0] hover:rounded-sm '}  href="truck">Trucks</Link></>
+    <nav>
+      <ul className='flex w-[40%]'>
+        <li><Link className={pathname === '/' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0]  hover:rounded-sm'}  href="/" >All </Link></li>
+        <li><Link className={pathname === '/car' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0]  hover:rounded-sm '}   href="car" >Cars </Link></li>
+        <li>
+        <Link className={pathname === '/bus' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0]  hover:rounded-sm '}   href="bus">Bus</Link>
+        </li>
+        <li>
+        <Link className={pathname === '/motorcycle' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0] hover:rounded-sm '}  href="motorcycle">Motorcycles</Link>
+        </li>
+        <li>
+        <Link className={pathname === '/truck' ? 'navActiveLink px-2 py-[2px]' : 'navLink px-2 py-[2px] hover:bg-[#dcdde0] hover:rounded-sm '}  href="truck">Trucks</Link>
+        </li>    
+      </ul>
+   
+    </nav>
   )
 }
 

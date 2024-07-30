@@ -38,9 +38,9 @@ export default function RootLayout({
       <h1 className="text-xl text-bold uppercase">Statistics showing metrics of motor vehicle collision </h1>
 
       <div className="flex justify-between w-[100%] items-center">
-        <div className=" flex w-[40%]">
+        
           <Nav/>
-          </div>
+         
         
         <div> <Drawer/></div>
         
