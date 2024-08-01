@@ -42,22 +42,21 @@ const Search: React.FC<{ getSearch: GetSearchFunction }> = ({getSearch})=> {
        
       }
   return (
-    <div className='w-[18rem]  '>  <Form {...form}>
+    <div className='md:w-[15rem] w-[11rem]  '>  <Form {...form}>
     <form    onSubmit={form.handleSubmit(onSubmit)} className="flex items-center justify-around">
       <FormField
         name="searchString" 
         control={form.control}
-        
         render={({ field }) => (
-          <FormItem>
+          <FormItem >
             
-            <FormControl>
-              <Input placeholder="Enter search here" {...field} />
+            <FormControl >
+              <Input className="h-[30px] w-[125px] md:w-[12rem]" placeholder="Enter search here" {...field} />
             </FormControl>
           </FormItem>
         )}
       />
-      <Button type="submit"><MagnifyingGlassIcon/></Button>
+      <Button className='className="w-[30px] h-[30px] p-2' variant="default" type="submit"><MagnifyingGlassIcon className='w-3'/></Button>
     </form>
   </Form>
 </div>

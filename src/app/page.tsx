@@ -50,7 +50,7 @@ export default async function Home() {
       <div className="p-4 ">
       
 
-        <div className="flex justify-between">
+        <div className="md:flex md:justify-between">
          
 
               <TableComponent totalCount={totalCount} data={collisionData} getSearchQuery={searchTable} getPage={fetchPaginatedData}/>
@@ -60,9 +60,9 @@ export default async function Home() {
 
 
 
-          <div className="text-[15px] p-4 mt-[50px] w-[20%] bg-[#dbeafe]">
+          <div className="p-4 md:text-[15px]  md:mt-[50px] md:w-[20%] bg-[#dbeafe] w-[100%] mt-5">
             <h2 className="text-lg font-semibold mb-3 text-center py-1.5 border-b border-black">COLLISIONS STATS</h2>
-            <div className="text-base pt-4 flex-col space-y-4 h-[20rem]">
+            <div className="text-base pt-4 flex-col space-y-4 md:h-[20rem] h-[18rem]">
             <div className="">Number of collisions per year: <span className="font-light">{collisionForEachYear}</span></div>
             
             <div>
@@ -77,7 +77,7 @@ export default async function Home() {
             
             
           </div>
-          <div className="flex space-x-2 pt-5"><div><InfoCircledIcon/></div><div className="text-xs">avgM*: average monthly collision using a 12 month approximation</div></div>
+          <div className="flex space-x-2 pt-4 pb-4"><div><InfoCircledIcon/></div><div className="text-xs">avgM*: average monthly collision using a 12 month approximation</div></div>
             </div>
         </div>
       </div>

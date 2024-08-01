@@ -98,7 +98,7 @@ placeholder =  <SelectValue placeholder={'select month'} />
   return (
     <div>
         <Select onValueChange={handleChange}>
-  <SelectTrigger className="w-[180px]">
+  <SelectTrigger className="w-[80px] md:w-[180px]">
     {placeholder}
   </SelectTrigger>
   <SelectContent>

@@ -35,14 +35,14 @@ export default function RootLayout({
      
       </header>
       <div className="p-2">
-      <h1 className="text-xl text-bold uppercase">Statistics showing metrics of motor vehicle collision </h1>
+      <h1 className=" text-base mb-4 md:text-xl text-bold uppercase">Statistics showing metrics of motor vehicle collision </h1>
 
       <div className="flex justify-between w-[100%] items-center">
         
           <Nav/>
          
         
-        <div> <Drawer/></div>
+        <div className="hidden md:block"> <Drawer/></div>
         
       </div>
       </div>

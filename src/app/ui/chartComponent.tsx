@@ -105,33 +105,33 @@ const Chartcomponent :React.FC<ChartDataType>  = ({barChartData, pieChartData})=
   return (
     <>
          
-         <div className="flex items-center justify-between mb-4 w-[30%]  ">
+         <div className="flex items-center justify-between mb-4 md:w-[30%] w-[64%]  ">
           <div className="font-semibold text-sm uppercase">Filter </div>
           <div><Select key={'default-1'} type='default' /></div>
           <div> <Select key={'year-1'} onSelectChange={handleSelectChange} type='year' yearList={yearList}/> </div>
         </div>
           
 
-        <div className="h-[40rem] border flex">
-          <div className=" border w-[80%] p-8">
+        <div className="h-[40rem] md:flex ">
+          <div className=" border md:w-[80%] w-[100%] md:p-8 p-1">
 
             <h2 className='font-semibold'>CHART INFORMATION</h2>
-            <div className='flex bg-blue-100'>
-            <div className=" border w-[80%] p-16 text-center mx-auto my-0" >
+            <div className=' relative bg-blue-100'>
+            <div className=" border w-[80%] md:p-16 p-4 text-center mx-auto my-0" >
             {chart}
            
             </div>
-            <div className='mt-4 w-[5%] '>
-              <button title="click this to see the piechart for models" type='button'onClick={()=>handleChartSet('pie')} className='w-8 h-8 hover:bg-[#f3f4f6] rounded-sm  hover:text-white-500'><PieChartIcon className='w-7 h-7 mx-auto my-auto'/></button>
-              <button title='click this to see the barChart'type='button' onClick={()=>handleChartSet('bar')} className='w-8 h-8 hover:bg-[#f3f4f6] rounded-sm  hover:text-white-500'><BarChartIcon className='w-7 h-7 mx-auto my-auto'/></button>
+            <div className='absolute top-0 right-2 md:mt-4 md:w-[5%] flex-col items-center justify-center w-[10%] mt-2'>
+              <button title="click this to see the piechart for models" type='button'onClick={()=>handleChartSet('pie')} className='md:w-8 md:h-8 h-5 w-5 hover:bg-[#f3f4f6] rounded-sm  hover:text-white-500'><PieChartIcon className='md:w-7 md:h-7 h-5 w-5 mx-auto my-auto'/></button>
+              <button title='click this to see the barChart'type='button' onClick={()=>handleChartSet('bar')} className='md:w-8 md:h-8 h-5 w-5 hover:bg-[#f3f4f6] rounded-sm  hover:text-white-500'><BarChartIcon className='md:w-7 md:h-7 h-5 w-5 mx-auto my-auto'/></button>
               
               
             </div>
             </div>
-           
+            
             
            </div>
-          <div className=" p-4 w-[20%]">
+          <div className=" md:p-4 md:w-[20%] border min-height-[12rem] w-100% p-2 mt-4">
           <VehicleAggComponent barData={newData} pieData={chartData}  selectedYear={selectedYear} currentChart={currentChart}/>
             </div>
             

@@ -6,6 +6,7 @@ import Select from "@/app/ui/select"
 import {filterData,splitDate} from "@/lib/utils"
 import { Collisions } from '@/xata';
 import {SearchResult} from '@/lib/types'
+import { ChevronRightIcon,ChevronLeftIcon } from '@radix-ui/react-icons';
 
 type TableCompType={
   data: Collisions[],
@@ -62,8 +63,12 @@ useEffect(() => {
   const pagesArray = Array.from({ length: pages }, (v, i) => i + 1)
  
   const handlePageClick=async (pageIndex:number)=>{
+    
+    let page = pageIndex + 1
+    if(page === currentPage){
+      return 
+    }
     setLoading(true)
-  let page = pageIndex + 1
    let result = await getPage(page)
    if(result){
     setLoading(false)
@@ -176,21 +181,33 @@ useEffect(() => {
     }
     
    }
+   let loadingOrTable = loading ? <div className='min-h-[20rem] flex items-center justify-center'>...loading</div> :<div className='min-h-[20rem]'> <Table lastPage={pagesArray.length} currentPage={currentPage}data={collisionData} searchData={searchData} closeSearch={()=>{handleCloseSearch()}} /></div>
 
-   let loadingOrTable = loading ? <div>...loading</div> : <Table data={collisionData} searchData={searchData} closeSearch={()=>{handleCloseSearch()}} />
+ 
 
   return (
-    <div className='w-[80%]'>
+    <div className='md:w-[80%]  w-100%'>
     <div className="flex space-x-2 items-center justify-between mb-4 max-w-[20%] ">
           <div className="font-semibold text-sm uppercase">Filter </div>
-          <div id='def'><Select key={resetKey} onSelectChange={(val)=>{handleSelectChange(val,'default')}} type={'default'} /></div>
+          <div><Select key={resetKey} onSelectChange={(val)=>{handleSelectChange(val,'default')}} type={'default'} /></div>
           {opt}
          
         </div>
-    <div className="h-[40rem] overflow-y-auto border ">
-    <div className=" p-4">
-     <div className=" p-1 px-2 flex justify-between items-center shadow-sm z-10 sticky top-0 bg-slate-400"><h2 className='font-semibold'>CHART INFORMATION</h2> <div className='flex w-26 justify-between'>{pagesBtn}</div><Search getSearch={handleSearch} /></div>
-      <div className="p-4 border" >
+    <div className="h-[40rem] border overflow-y-auto ">
+    <div className=" md:p-4">
+     <div className="p-1 px-2 flex justify-between  items-center shadow-sm z-10 sticky top-0 bg-slate-400"><h2 className='font-semibold no-wrap'>TABLE <span className='hidden md:inline-block'>INFORMATION</span></h2> <div className=' hidden md:flex md:w-26 md:justify-between'>{pagesBtn}</div>
+     
+     <Search getSearch={handleSearch} />
+     <div className='space-x-2 w-12 h-6 flex md:hidden'>
+      <div className='w-5 h-5'>
+      <button onClick={()=>{handlePageClick(currentPage - 2)}} title='button for next page' type='button' className={` w-5 h-5 p-1 flex justify-center items-center text-white text-xs  bg-[#334155] rounded-full ${currentPage=== 1 ? 'hidden': ''}`}><ChevronLeftIcon/></button>
+      </div>
+    
+     <div className='w-5 h-5'><button onClick={()=>{handlePageClick(currentPage)}} title='button for previous page' type='button' className={` w-5 h-5 p-1 text-white text-xs text-nowrap bg-[#334155] rounded-full flex justify-center items-center ${currentPage=== pagesArray.length ? 'hidden': ''}` }><ChevronRightIcon/></button></div>
+     </div>
+     </div>
+    
+      <div className="p-4 " >
       {loadingOrTable}
         
       </div>

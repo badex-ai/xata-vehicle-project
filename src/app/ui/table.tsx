@@ -17,10 +17,12 @@ type TableUIType = {
   data: Collisions[],
   searchData: {records:{record:Collisions ,table: string}[],totalCount: number} | null,
   closeSearch: ()=> void 
+  currentPage: number,
+  lastPage: number
 }
   
   
-  const TableUI: React.FC<TableUIType> = ({data,searchData,closeSearch})=> {
+  const TableUI: React.FC<TableUIType> = ({data,searchData,currentPage,lastPage,closeSearch})=> {
     
     useEffect(() => {
      
@@ -31,9 +33,9 @@ type TableUIType = {
 
   let searchTable =  searchData?.records.length === 0 ?
       <>
-      <div className='w-[100%] text-center'>
+      <div className='w-[100%] mt-8 text-center'>
       <div className='mx-auto w-8 h-8'><CrumpledPaperIcon/></div>
-      <div> There are no result for this search</div>
+      <div> There are no results for this search</div>
       </div></>
     :
       <Table>
@@ -76,42 +78,45 @@ type TableUIType = {
       <div> There are no result for this filter</div>
       </div></>
     :
-    <Table>
-    <TableHeader>
-     <TableRow>
-       <TableHead className="w-[100px]">Cause of collision</TableHead>
-       <TableHead>Drivers experience</TableHead>
-       <TableHead>Sex</TableHead>
-       <TableHead className="text-right">location</TableHead>
-       <TableHead className="text-right">State</TableHead>
-       <TableHead className="text-right">Time</TableHead>
-       <TableHead className="text-right">Plate number</TableHead>
-       <TableHead className="text-right">Vehicle brand/ model</TableHead>
-       <TableHead className="text-right">Vehicle type</TableHead>
-     </TableRow>
-   </TableHeader>
-   <TableBody>
-     {data.map((collision) => 
-    
-       {
-       
-       return <TableRow key={collision.id}>
-         <TableCell className="font-medium">{collision.cause_of_collision}</TableCell>
-         <TableCell>{collision.driver_experience}</TableCell>
-         <TableCell>{collision.driver_sex}</TableCell>
-         <TableCell className="text-right">{collision.location_of_collision}</TableCell>
-         <TableCell className="text-right">{collision.state_name}</TableCell>
-         {/* <TableCell className="text-right">{collision.location_of_collision}</TableCell> */}
-         <TableCell className="text-right">{`${collision.timestamp}`}</TableCell>
-       
-         <TableCell className="text-right">{collision.vehicle_plate_number}</TableCell>
-         <TableCell className="text-right">{`${collision.vehicle_brands?.name} ${collision.vehicle_brands?.model}`}</TableCell>
-         <TableCell className="text-right">{collision.vehicle_brands?.vehicle_type}</TableCell>
+    <>
+      <div className='md:hidden text-xs font-light'>Page {currentPage} of {lastPage}</div>
+      <Table>
+      <TableHeader>
+       <TableRow>
+         <TableHead className="w-[100px]">Cause of collision</TableHead>
+         <TableHead>Drivers experience</TableHead>
+         <TableHead>Sex</TableHead>
+         <TableHead className="text-right">location</TableHead>
+         <TableHead className="text-right">State</TableHead>
+         <TableHead className="text-right">Time</TableHead>
+         <TableHead className="text-right">Plate number</TableHead>
+         <TableHead className="text-right">Vehicle brand/ model</TableHead>
+         <TableHead className="text-right">Vehicle type</TableHead>
        </TableRow>
-     })}
-   </TableBody>
- 
- </Table>
+         </TableHeader>
+         <TableBody>
+       {data.map((collision) =>
+      
+         {
+      
+         return <TableRow key={collision.id}>
+           <TableCell className="font-medium">{collision.cause_of_collision}</TableCell>
+           <TableCell>{collision.driver_experience}</TableCell>
+           <TableCell>{collision.driver_sex}</TableCell>
+           <TableCell className="text-right">{collision.location_of_collision}</TableCell>
+           <TableCell className="text-right">{collision.state_name}</TableCell>
+           {/* <TableCell className="text-right">{collision.location_of_collision}</TableCell> */}
+           <TableCell className="text-right">{`${collision.timestamp}`}</TableCell>
+      
+           <TableCell className="text-right">{collision.vehicle_plate_number}</TableCell>
+           <TableCell className="text-right">{`${collision.vehicle_brands?.name} ${collision.vehicle_brands?.model}`}</TableCell>
+           <TableCell className="text-right">{collision.vehicle_brands?.vehicle_type}</TableCell>
+         </TableRow>
+       })}
+         </TableBody>
+       
+       </Table>
+    </>
     
     
 
@@ -127,7 +132,7 @@ type TableUIType = {
      </>
 
     return (
-      <div>{content}</div>
+      <div className=''>{content}</div>
         
     )
   }
