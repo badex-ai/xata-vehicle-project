@@ -7,16 +7,21 @@ import {filterData,splitDate} from "@/lib/utils"
 import { Collisions } from '@/xata';
 import {SearchResult} from '@/lib/types'
 import { ChevronRightIcon,ChevronLeftIcon } from '@radix-ui/react-icons';
+import { Button } from "@/components/ui/button"
+import TextareaForm from "@/app/ui/sqlTextForm"
+import SQLQueryBuilder from '@/components/ui/SQLQueryBuilder'
+
 
 type TableCompType={
   data: Collisions[],
   getSearchQuery: (params: { searchString: string }) => Promise<SearchResult>, 
+  getSQLQuery: (params: { data: string }) => void,
 totalCount: number,
 getPage:(page: number) => Promise<Collisions[]>
 
 }
 
-const TableComponent: React.FC<TableCompType> =({ data, getSearchQuery,totalCount,getPage })=> {
+const TableComponent: React.FC<TableCompType> =({ data, getSearchQuery,getSQLQuery,totalCount,getPage })=> {
  
   let tempCollisionData = JSON.parse(JSON.stringify(data))
   const [currentData, setCurrentData] = useState(tempCollisionData)
@@ -31,6 +36,7 @@ const TableComponent: React.FC<TableCompType> =({ data, getSearchQuery,totalCoun
   const [currentPage, setcurrentPage] = useState(1)
   const [resetKey, setResetKey] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [sqlQuery, setSqlQuery] = useState(false)
 
   useEffect(() => {
   }, [loading])
@@ -82,7 +88,7 @@ useEffect(() => {
   }
   let pagesBtn = pagesArray.map((page,index)=>{
     
-    return <><button key={`${page}-${index}`} className={`w-6 h-6 relative  text-xs ${ `${currentPage}` === `${page}` ? 'rounded-full bg-[#334155] text-white' : ''} relative-btn`} onClick={()=>{handlePageClick(index)}}>{page}</button></>
+    return <><button type='button' key={`${page}-${index}`} className={`w-6 h-6 relative  text-xs ${ `${currentPage}` === `${page}` ? 'rounded-full bg-[#334155] text-white' : ''} relative-btn`} onClick={()=>{handlePageClick(index)}}>{page}</button></>
   })
 
   let arrayForYearList:string[] = []
@@ -183,16 +189,41 @@ useEffect(() => {
    }
    let loadingOrTable = loading ? <div className='min-h-[20rem] flex items-center justify-center'>...loading</div> :<div className='min-h-[20rem]'> <Table lastPage={pagesArray.length} currentPage={currentPage}data={collisionData} searchData={searchData} closeSearch={()=>{handleCloseSearch()}} /></div>
 
+   const handleSqlClick = ()=>{
+    setSqlQuery(true)
+   }
  
+   const handleTextAreaClose=()=>{
+    setSqlQuery(false)
+    console.log(`text area close clicked`)
+   }
 
   return (
     <div className='md:w-[80%]  w-100%'>
-    <div className="flex space-x-2 items-center justify-between mb-4 max-w-[20%] ">
+      <div className='flex justify-between'>
+      <div className="flex space-x-2 items-center justify-between mb-4 max-w-[20%] ">
           <div className="font-semibold text-sm uppercase">Filter </div>
           <div><Select key={resetKey} onSelectChange={(val)=>{handleSelectChange(val,'default')}} type={'default'} /></div>
           {opt}
+
+         
          
         </div>
+      <Button className='mr-2 bg-[#334155] text-white' onClick={handleSqlClick}variant="outline">SQL</Button>
+      </div>
+      <div>
+      {sqlQuery && 
+        <div className=''>
+           <TextareaForm submitSQLQuery={getSQLQuery} closeTextBox={handleTextAreaClose}></TextareaForm>
+           
+        </div>
+       
+        }
+        <SQLQueryBuilder/>
+      
+      </div>
+
+    
     <div className="h-[40rem] border overflow-y-auto ">
     <div className=" md:p-4">
      <div className="p-1 px-2 flex justify-between  items-center shadow-sm z-10 sticky top-0 bg-slate-400"><h2 className='font-semibold no-wrap'>TABLE <span className='hidden md:inline-block'>INFORMATION</span></h2> <div className=' hidden md:flex md:w-26 md:justify-between'>{pagesBtn}</div>

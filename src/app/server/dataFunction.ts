@@ -6,6 +6,16 @@ import {SearchResult} from '@/lib/types'
 
 const xata = getXataClient();
 
+
+export async function getSQLQuery(query: {sqlForm: string}){
+  console.log(query.sqlForm,'this is the data passed')
+  const userInput = query.sqlForm.toString()
+  const result = await xata.sql<Collisions>`${query.sqlForm}`
+  console.log(result)
+  return result
+  
+}
+
 export async function  getAllCollisions(){
     return await xata.db.collisions.getPaginated() 
   }

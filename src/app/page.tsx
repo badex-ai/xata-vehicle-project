@@ -1,4 +1,4 @@
-import { getAllCollionsCount, getAllCollionsCountPerYear, getallCollisions,getStatesCollisionsCounts,searchTable,getHigestCollisionCause,fetchPaginatedData } from "./server/dataFunction";
+import { getAllCollionsCount, getAllCollionsCountPerYear, getallCollisions,getStatesCollisionsCounts,searchTable,getHigestCollisionCause,fetchPaginatedData,getSQLQuery } from "./server/dataFunction";
 import TableComponent from "./ui/tableComponent";
 import { InfoCircledIcon } from '@radix-ui/react-icons'
 
@@ -10,6 +10,7 @@ export default async function Home() {
 
 
   const collisionData = await getallCollisions()
+  
 
   
  
@@ -43,6 +44,11 @@ export default async function Home() {
 
   const mostFrequentCollisionCause = await getHigestCollisionCause()
 
+  // const  handleSQLQuery = async(data)=>{
+  //   // const sqlResult = await getSQLQuery(data)
+  //   console.log(data,'this is the data passed')
+  // }
+
 
   return (
 
@@ -53,7 +59,7 @@ export default async function Home() {
         <div className="md:flex md:justify-between">
          
 
-              <TableComponent totalCount={totalCount} data={collisionData} getSearchQuery={searchTable} getPage={fetchPaginatedData}/>
+              <TableComponent getSQLQuery={getSQLQuery} totalCount={totalCount} data={collisionData} getSearchQuery={searchTable} getPage={fetchPaginatedData}/>
              
            
 
