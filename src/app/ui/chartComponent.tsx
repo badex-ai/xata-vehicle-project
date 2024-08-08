@@ -131,7 +131,7 @@ const Chartcomponent :React.FC<ChartDataType>  = ({barChartData, pieChartData})=
             
             
            </div>
-          <div className=" md:p-4 md:w-[20%] border min-height-[12rem] w-100% p-2 mt-4">
+          <div className=" md:p-4 md:w-[20%] border min-height-[12rem] w-100% p-2 mt-4 md:mt-0">
           <VehicleAggComponent barData={newData} pieData={chartData}  selectedYear={selectedYear} currentChart={currentChart}/>
             </div>
             

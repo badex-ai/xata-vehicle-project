@@ -9,7 +9,7 @@ import {SearchResult} from '@/lib/types'
 import { ChevronRightIcon,ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Button } from "@/components/ui/button"
 import TextareaForm from "@/app/ui/sqlTextForm"
-import SQLQueryBuilder from '@/components/ui/SQLQueryBuilder'
+// import SQLQueryBuilder from '@/components/ui/SQLQueryBuilder'
 
 
 type TableCompType={
@@ -209,17 +209,17 @@ useEffect(() => {
          
          
         </div>
-      <Button className='mr-2 bg-[#334155] text-white' onClick={handleSqlClick}variant="outline">SQL</Button>
+      {/* <Button className='mr-2 bg-[#334155] text-white' onClick={handleSqlClick}variant="outline">SQL</Button> */}
       </div>
       <div>
-      {sqlQuery && 
+      {/* {sqlQuery && 
         <div className=''>
            <TextareaForm submitSQLQuery={getSQLQuery} closeTextBox={handleTextAreaClose}></TextareaForm>
            
         </div>
        
-        }
-        <SQLQueryBuilder/>
+        } */}
+        {/* <SQLQueryBuilder/> */}
       
       </div>
 
